@@ -12,27 +12,27 @@ type Mutation {
 }
 
 type TodoQuery {
-#    allTodos: [Todo!]!
+    allTodos: [Todo!]!
     allUsers: [User!]!
-#    todo(code: ID!): Todo!
+    todo(code: ID!): Todo!
     user(code: ID!): User!
 }
 
 type TodoMutation {
-#    createTodo(input: CreateTodo!): Todo!
-#    updateTodo(input: UpdateTodo!): Todo!
-#    deleteTodo(input: DeleteTodo!): Todo!
+    createTodo(input: CreateTodo!): Todo!
+    updateTodo(input: UpdateTodo!): Todo!
+    deleteTodo(input: DeleteTodo!): Todo!
     createUser(input: CreateUser!): User!
     updateUser(input: UpdateUser!): User!
     deleteUser(input: DeleteUser!): User!
 }
 
-#type Todo {
-#    id: ID!
-#    text: String!
+type Todo {
+    id: ID!
+    text: String!
 #    status: TodoStatus!
-#    user: User!
-#}
+    user: User!
+}
 
 type User {
     id: ID!
@@ -40,20 +40,20 @@ type User {
 #    todos: [Todo!]!
 }
 
-#input CreateTodo {
-#    text: String!
-#    userId: String!
-#}
-#
-#input UpdateTodo {
-#    id: ID!
-#    text: String
+input CreateTodo {
+    text: String!
+    userId: ID!
+}
+
+input UpdateTodo {
+    id: ID!
+    text: String
 #    status: TodoStatus
-#}
-#
-#input DeleteTodo {
-#    id: ID!
-#}
+}
+
+input DeleteTodo {
+    id: ID!
+}
 
 input CreateUser {
     name: String!
