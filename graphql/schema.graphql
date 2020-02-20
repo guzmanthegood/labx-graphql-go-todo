@@ -1,58 +1,76 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
 type Query {
     todo: TodoQuery
 }
+
 type Mutation {
     todo: TodoMutation
 }
+
 type TodoQuery {
-    allTodos: [Todo!]!
+#    allTodos: [Todo!]!
     allUsers: [User!]!
-    todo(code: ID!): Todo!
+#    todo(code: ID!): Todo!
     user(code: ID!): User!
 }
+
 type TodoMutation {
-    createTodo(input: CreateTodo!): Todo!
-    updateTodo(input: UpdateTodo!): Todo!
-    deleteTodo(input: DeleteTodo!): Todo!
-    createUser(input: CreateUser!): User!
-    updateUser(input: UpdateUser!): User!
-    deleteUser(input: DeleteUser!): User!
+    test: String
+#    createTodo(input: CreateTodo!): Todo!
+#    updateTodo(input: UpdateTodo!): Todo!
+#    deleteTodo(input: DeleteTodo!): Todo!
+#    createUser(input: CreateUser!): User!
+#    updateUser(input: UpdateUser!): User!
+#    deleteUser(input: DeleteUser!): User!
 }
-type Todo {
-    id: ID!
-    text: String!
-    status: TodoStatus!
-    user: User!
-}
+
+#type Todo {
+#    id: ID!
+#    text: String!
+#    status: TodoStatus!
+#    user: User!
+#}
+
 type User {
     id: ID!
     name: String!
-    todos: [Todo!]!
+#    todos: [Todo!]!
 }
-input CreateTodo {
-    text: String!
-    userId: String!
-}
-input UpdateTodo {
-    id: ID!
-    text: String
-    status: TodoStatus
-}
-input DeleteTodo {
-    id: ID!
-}
-input CreateUser {
-    name: String!
-}
-input UpdateUser {
-    id: ID!
-    name: String!
-}
-input DeleteUser {
-    id: ID!
-}
-enum TodoStatus {
-    PENDING
-    CANCELLED
-    DONE
-}
+
+#input CreateTodo {
+#    text: String!
+#    userId: String!
+#}
+#
+#input UpdateTodo {
+#    id: ID!
+#    text: String
+#    status: TodoStatus
+#}
+#
+#input DeleteTodo {
+#    id: ID!
+#}
+
+#input CreateUser {
+#    name: String!
+#}
+#
+#input UpdateUser {
+#    id: ID!
+#    name: String!
+#}
+#
+#input DeleteUser {
+#    id: ID!
+#}
+
+#enum TodoStatus {
+#    PENDING
+#    CANCELLED
+#    DONE
+#}

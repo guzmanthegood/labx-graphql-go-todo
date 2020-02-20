@@ -8,7 +8,6 @@ import (
 	"os"
 
 	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/render"
 )
 
@@ -16,7 +15,7 @@ func newRouter() *chi.Mux {
 	r := chi.NewRouter()
 	r.Use(render.SetContentType(render.ContentTypeJSON)) 	// set response type as json by default
 	r.Use(Recover)											// recover from panics
-	r.Use(middleware.Logger)								// log transactions
+	//r.Use(middleware.Logger)								// log transactions
 
 	http.Handle("/", http.FileServer(http.Dir("./server/")))
 
@@ -25,6 +24,7 @@ func newRouter() *chi.Mux {
 		r.Get("/", playground)
 		r.Get("/status", status)
 		r.Get("/panic", panicTest)
+		r.Post("/query", graphQLService)
 		// r.NotFound(notFound)
 	})
 
