@@ -3,9 +3,10 @@ package main
 import (
 	"errors"
 	"fmt"
-	"github.com/go-chi/render"
 	"log"
 	"net/http"
+
+	"github.com/go-chi/render"
 )
 
 // Recover middleware to rescue from panic
