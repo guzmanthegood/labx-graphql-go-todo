@@ -13,6 +13,7 @@ type server struct {
 }
 
 func main() {
+	log.Println("====== LABX-GRAPHQL-GO-TODO SERVER ======")
 	s := server{}
 	s.initialize()
 	s.start()
@@ -36,7 +37,7 @@ func (s *server) initialize() {
 
 // Start server
 func (s *server) start() {
-	log.Printf("[INFO] starting server http://localhost:%v", defaultPort)
+	log.Printf("[INFO] API server listening at http://localhost:%v", defaultPort)
 
 	if err := s.server.ListenAndServe(); err != http.ErrServerClosed {
 		log.Fatal("[ERRO] internal server error", err)
