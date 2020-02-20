@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
@@ -16,11 +18,14 @@ func newRouter() *chi.Mux {
 	r.Use(Recover)											// recover from panics
 	r.Use(middleware.Logger)								// log transactions
 
+	http.Handle("/", http.FileServer(http.Dir("./server/")))
+
 	// api routes
 	r.Route("/", func(r chi.Router) {
-		r.Get("/status", Status)
-		r.Get("/panic", Panic)
-		r.NotFound(NotFound)
+		r.Get("/", playground)
+		r.Get("/status", status)
+		r.Get("/panic", panicTest)
+		// r.NotFound(notFound)
 	})
 
 	// log all routes
@@ -35,19 +40,29 @@ func newRouter() *chi.Mux {
 	return r
 }
 
-// Status handler function
-func Status(w http.ResponseWriter, r *http.Request) {
+func status(w http.ResponseWriter, r *http.Request) {
 	render.PlainText(w, r, "OK")
 }
 
-// Panic handler function
-func Panic(w http.ResponseWriter, r *http.Request) {
+func panicTest(w http.ResponseWriter, r *http.Request) {
 	panic("panic test")
 }
 
-// NotFound render status function
-func NotFound(w http.ResponseWriter, r *http.Request) {
+func notFound(w http.ResponseWriter, r *http.Request) {
 	log.Printf("[ERRO] resource not found: %s\n", r.URL.Path)
 	render.Status(r, http.StatusNotFound)
 	render.PlainText(w, r, fmt.Sprintf("resource not found: %v", r.URL.Path))
+}
+
+func playground(w http.ResponseWriter, r *http.Request) {
+	file, err := os.Open("./server/playground.html")
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+	html, err := ioutil.ReadAll(file)
+	if err != nil {
+		panic(err)
+	}
+	render.HTML(w, r, string(html))
 }
