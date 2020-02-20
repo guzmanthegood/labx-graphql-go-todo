@@ -1,0 +1,12 @@
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+debug
+.vscode
+.vscode/*
+config/config.json
+.idea
+/vendor
