@@ -19,13 +19,12 @@ type TodoQuery {
 }
 
 type TodoMutation {
-    test: String
 #    createTodo(input: CreateTodo!): Todo!
 #    updateTodo(input: UpdateTodo!): Todo!
 #    deleteTodo(input: DeleteTodo!): Todo!
-#    createUser(input: CreateUser!): User!
-#    updateUser(input: UpdateUser!): User!
-#    deleteUser(input: DeleteUser!): User!
+    createUser(input: CreateUser!): User!
+    updateUser(input: UpdateUser!): User!
+    deleteUser(input: DeleteUser!): User!
 }
 
 #type Todo {
@@ -56,18 +55,18 @@ type User {
 #    id: ID!
 #}
 
-#input CreateUser {
-#    name: String!
-#}
-#
-#input UpdateUser {
-#    id: ID!
-#    name: String!
-#}
-#
-#input DeleteUser {
-#    id: ID!
-#}
+input CreateUser {
+    name: String!
+}
+
+input UpdateUser {
+    id: ID!
+    name: String!
+}
+
+input DeleteUser {
+    id: ID!
+}
 
 #enum TodoStatus {
 #    PENDING
