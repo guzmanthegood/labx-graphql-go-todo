@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"strconv"
 
 	"labx-graphql-go-todo/model"
 
@@ -11,7 +12,7 @@ import (
 )
 
 type UserFilter struct {
-	Code graphql.ID
+	ID graphql.ID
 }
 
 type TodoFilter struct {
@@ -20,16 +21,32 @@ type TodoFilter struct {
 
 
 func (r *TodoQueryResolver) User(ctx context.Context, args *UserFilter) *UserResolver {
-	log.Printf("[INFO] query/todo/user(code:%v)", args.Code)
-	return &UserResolver{u:model.User{
-		ID:   string(args.Code),
-		Name: fmt.Sprintf("Perico %v", args.Code),
-	}}
+	log.Printf("[INFO] query/todo/user(id:%v)", args.ID)
+
+	ID, err := strconv.Atoi(string(args.ID))
+	if err != nil {
+		panic(err)
+	}
+
+	user, err := model.GetDataStore().GetUser(int32(ID))
+	if err != nil {
+		panic(err)
+	}
+	return &UserResolver{u: user}
 }
 
 func (r *TodoQueryResolver) AllUsers(ctx context.Context) []*UserResolver {
 	log.Println("[INFO] query/todo/allUsers")
-	return nil
+
+	users, err := model.GetDataStore().AllUsers()
+	if err != nil {
+		panic(err)
+	}
+	var usersResolvers []*UserResolver
+	for _, u := range users {
+		usersResolvers = append(usersResolvers, &UserResolver{u	})
+	}
+	return usersResolvers
 }
 
 func (r *TodoQueryResolver) Todo(ctx context.Context, args *TodoFilter) *TodoResolver {

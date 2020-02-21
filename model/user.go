@@ -1,8 +1,33 @@
 package model
 
 type User struct {
-	ID 		string
-	Name 	string
+	ID 		string	`db:"id"`
+	Name 	string 	`db:"name"`
+}
+
+// AllUsers SQL query
+func (s store) GetUser(id int32) (User, error) {
+	var res []User
+	sql := "SELECT * FROM public.user WHERE id=$1"
+	err := s.db.Select(&res, sql, id)
+	if err != nil {
+		return User{}, err
+	}
+	if len(res) == 0 {
+		return User{}, nil
+	}
+	return res[0], nil
+}
+
+// AllUsers SQL query
+func (s store) AllUsers() ([]User, error) {
+	var res []User
+	sql := "SELECT * FROM public.user"
+	err := s.db.Select(&res, sql)
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
 }
 
 // CreateUser SQL mutation

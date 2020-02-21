@@ -7,6 +7,8 @@ import (
 
 // DataStore interface
 type DataStore interface {
+	GetUser(id int32) (User, error)
+	AllUsers() ([]User, error)
 	CreateUser(name string) (*User, error)
 	UpdateUser(id int32, name string) (*User, error)
 	DeleteUser(id int32) error

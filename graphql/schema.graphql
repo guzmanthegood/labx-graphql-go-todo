@@ -15,7 +15,7 @@ type TodoQuery {
     allTodos: [Todo!]!
     allUsers: [User!]!
     todo(code: ID!): Todo!
-    user(code: ID!): User!
+    user(id: ID!): User!
 }
 
 type TodoMutation {
