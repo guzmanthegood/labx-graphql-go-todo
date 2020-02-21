@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"labx-graphql-go-todo/model"
 	"log"
 	"net/http"
 	"os"
@@ -27,6 +28,17 @@ func (s *server) initialize() {
 	if os.Getenv("PORT") != "" {
 		s.port = os.Getenv("PORT")
 	}
+
+	// init database connection
+	// example: "host=localhost port=5432 user=postgres password=XXXXXX dbname=labx_todo sslmode=disable"
+	log.Println("[INFO] connecting PG database")
+	sqlConnString := os.Getenv("LABX_TODO_DB_CONN_STRING")
+	ds, err := model.NewDataStore(sqlConnString)
+	if err != nil {
+		log.Fatal("[ERRO] Connection database error. ", err)
+	}
+	model.SetDataStore(ds)
+	log.Println("[INFO] PG database connected OK")
 
 	// initialize server
 	s.server = &http.Server{
