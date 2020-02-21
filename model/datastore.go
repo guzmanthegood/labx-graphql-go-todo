@@ -6,7 +6,11 @@ import (
 )
 
 // DataStore interface
-type DataStore interface {}
+type DataStore interface {
+	CreateUser(name string) (*User, error)
+	UpdateUser(id int32, name string) (*User, error)
+	DeleteUser(id int32) error
+}
 
 // Database struct
 type store struct {

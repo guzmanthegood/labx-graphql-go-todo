@@ -5,6 +5,7 @@ import (
 	"github.com/guzmanweb/graphql-go"
 	"labx-graphql-go-todo/model"
 	"log"
+	"strconv"
 )
 
 type CreateUserInput struct {
@@ -37,25 +38,52 @@ type DeleteTodoInput struct {
 func (r *TodoMutationResolver) CreateUser(ctx context.Context, args *struct {
 	Input *CreateUserInput
 }) *UserResolver {
-	return &UserResolver{model.User{
-		ID:   "u14",
-		Name: args.Input.Name,
-	}}
+	user, err := model.GetDataStore().CreateUser(args.Input.Name)
+	if err != nil{
+		panic(err)
+	}
+	if user != nil {
+		return &UserResolver{model.User{
+			ID:   user.ID,
+			Name: user.Name,
+		}}
+	}
+	return &UserResolver{}
 }
 
 func (r *TodoMutationResolver) UpdateUser(ctx context.Context, args *struct {
 	Input *UpdateUserInput
 }) *UserResolver {
-	return &UserResolver{model.User{
-		ID:   string(args.Input.ID),
-		Name: args.Input.Name,
-	}}
+	ID, err := strconv.Atoi(string(args.Input.ID))
+	if err != nil {
+		panic(err)
+	}
+
+	user, err := model.GetDataStore().UpdateUser(int32(ID), args.Input.Name)
+	if err != nil{
+		panic(err)
+	}
+	if user != nil{
+		return &UserResolver{model.User{
+			ID:   user.ID,
+			Name: user.Name,
+		}}
+	}
+	return &UserResolver{}
 }
 
 func (r *TodoMutationResolver) DeleteUser(ctx context.Context, args *struct {
 	Input *DeleteUserInput
 }) *UserResolver {
-	return &UserResolver{model.User{}}
+	ID, err := strconv.Atoi(string(args.Input.ID))
+	if err != nil {
+		panic(err)
+	}
+	err = model.GetDataStore().DeleteUser(int32(ID))
+	if err !=  nil {
+		panic(err)
+	}
+	return &UserResolver{}
 }
 
 func (r *TodoMutationResolver) CreateTodo(ctx context.Context, args *struct {
