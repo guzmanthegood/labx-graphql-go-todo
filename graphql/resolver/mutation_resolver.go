@@ -4,7 +4,6 @@ import (
 	"context"
 	"github.com/guzmanweb/graphql-go"
 	"labx-graphql-go-todo/model"
-	"log"
 	"strconv"
 )
 
@@ -89,7 +88,6 @@ func (r *TodoMutationResolver) DeleteUser(ctx context.Context, args *struct {
 func (r *TodoMutationResolver) CreateTodo(ctx context.Context, args *struct {
 	Input *CreateTodoInput
 }) *TodoResolver {
-	log.Printf("[INFO] mutation/todo/createTodo(%v)", args.Input)
 	return &TodoResolver{model.Todo{
 		ID:   "u14",
 		Text: args.Input.Text,
