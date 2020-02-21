@@ -50,7 +50,7 @@ func (s *server) initialize() {
 
 // Start server
 func (s *server) start() {
-	log.Printf("[INFO] API server listening at http://localhost:%v", defaultPort)
+	log.Printf("[INFO] API server listening at http://localhost:%v", s.port)
 
 	if err := s.server.ListenAndServe(); err != http.ErrServerClosed {
 		log.Fatal("[ERRO] internal server error", err)
