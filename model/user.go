@@ -1,22 +1,22 @@
 package model
 
 type User struct {
-	ID 		string	`db:"id"`
+	ID 		int32	`db:"id"`
 	Name 	string 	`db:"name"`
 }
 
-// AllUsers SQL query
-func (s store) GetUser(id int32) (User, error) {
+// GetUser SQL query
+func (s store) GetUser(id int32) (*User, error) {
 	var res []User
 	sql := "SELECT * FROM public.user WHERE id=$1"
 	err := s.db.Select(&res, sql, id)
 	if err != nil {
-		return User{}, err
+		return nil, err
 	}
 	if len(res) == 0 {
-		return User{}, nil
+		return nil, nil
 	}
-	return res[0], nil
+	return &res[0], nil
 }
 
 // AllUsers SQL query

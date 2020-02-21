@@ -14,7 +14,7 @@ type Mutation {
 type TodoQuery {
     allTodos: [Todo!]!
     allUsers: [User!]!
-    todo(code: ID!): Todo!
+    todo(id: ID!): Todo!
     user(id: ID!): User!
 }
 
@@ -30,14 +30,14 @@ type TodoMutation {
 type Todo {
     id: ID!
     text: String!
-#    status: TodoStatus!
+    status: TodoStatus!
     user: User!
 }
 
 type User {
     id: ID!
     name: String!
-#    todos: [Todo!]!
+    todos: [Todo!]!
 }
 
 input CreateTodo {
@@ -48,7 +48,7 @@ input CreateTodo {
 input UpdateTodo {
     id: ID!
     text: String
-#    status: TodoStatus
+    status: TodoStatus
 }
 
 input DeleteTodo {
@@ -68,8 +68,8 @@ input DeleteUser {
     id: ID!
 }
 
-#enum TodoStatus {
-#    PENDING
-#    CANCELLED
-#    DONE
-#}
+enum TodoStatus {
+    PENDING
+    CANCELLED
+    DONE
+}

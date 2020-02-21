@@ -2,6 +2,7 @@ package resolver
 
 import (
 	"context"
+	"errors"
 	"strconv"
 
 	"labx-graphql-go-todo/model"
@@ -30,6 +31,7 @@ type CreateTodoInput struct {
 type UpdateTodoInput struct {
 	ID 		graphql.ID
 	Text 	*string
+	Status	*string
 }
 
 type DeleteTodoInput struct {
@@ -90,23 +92,82 @@ func (r *TodoMutationResolver) DeleteUser(ctx context.Context, args *struct {
 func (r *TodoMutationResolver) CreateTodo(ctx context.Context, args *struct {
 	Input *CreateTodoInput
 }) *TodoResolver {
-	return &TodoResolver{model.Todo{
-		ID:   "u14",
-		Text: args.Input.Text,
-	}}
+	userID, err := strconv.Atoi(string(args.Input.UserID))
+	if err != nil {
+		panic(err)
+	}
+	user, err := model.GetDataStore().GetUser(int32(userID))
+	if err != nil {
+		panic(err)
+	}
+	if user == nil {
+		panic(errors.New("user not found"))
+	}
+
+	todo, err := model.GetDataStore().CreateTodo(args.Input.Text, user.ID)
+	if err != nil{
+		panic(err)
+	}
+	if todo != nil {
+		return &TodoResolver{*todo}
+	}
+	return &TodoResolver{}
 }
 
 func (r *TodoMutationResolver) UpdateTodo(ctx context.Context, args *struct {
 	Input *UpdateTodoInput
 }) *TodoResolver {
-	return &TodoResolver{model.Todo{
-		ID:   string(args.Input.ID),
-		Text: *args.Input.Text,
-	}}
+	todoID, err := strconv.Atoi(string(args.Input.ID))
+	if err != nil {
+		panic(err)
+	}
+
+	todo, err := model.GetDataStore().GetTodo(int32(todoID))
+	if err != nil{
+		panic(err)
+	}
+	if todo == nil {
+		panic(errors.New("todo not found"))
+	}
+
+	text := todo.Text
+	status := todo.Status
+	if args.Input.Text != nil {
+		text = *args.Input.Text
+	}
+	if args.Input.Status != nil {
+		status = *args.Input.Status
+	}
+
+	todo, err = model.GetDataStore().UpdateTodo(int32(todoID), text, status)
+	if err != nil{
+		panic(err)
+	}
+	if todo != nil{
+		return &TodoResolver{*todo}
+	}
+	return &TodoResolver{}
 }
 
 func (r *TodoMutationResolver) DeleteTodo(ctx context.Context, args *struct {
 	Input *DeleteTodoInput
 }) *TodoResolver {
-	return &TodoResolver{model.Todo{}}
+	todoID, err := strconv.Atoi(string(args.Input.ID))
+	if err != nil {
+		panic(err)
+	}
+
+	todo, err := model.GetDataStore().GetTodo(int32(todoID))
+	if err != nil{
+		panic(err)
+	}
+	if todo == nil {
+		panic(errors.New("todo not found"))
+	}
+
+	err = model.GetDataStore().DeleteTodo(int32(todoID))
+	if err !=  nil {
+		panic(err)
+	}
+	return &TodoResolver{}
 }

@@ -9,6 +9,6 @@ ALTER TABLE public.user
 CREATE TABLE public.todo (
      id SERIAL PRIMARY KEY,
      description character varying(255),
-     status character varying(20),
+     status character varying(20) NOT NULL DEFAULT 'PENDING',
      user_id integer REFERENCES public.user(id) ON DELETE CASCADE
 );

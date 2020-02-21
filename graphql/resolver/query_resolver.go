@@ -2,7 +2,7 @@ package resolver
 
 import (
 	"context"
-	"fmt"
+	"errors"
 	"strconv"
 
 	"labx-graphql-go-todo/model"
@@ -15,12 +15,11 @@ type UserFilter struct {
 }
 
 type TodoFilter struct {
-	Code graphql.ID
+	ID graphql.ID
 }
 
 
 func (r *TodoQueryResolver) User(ctx context.Context, args *UserFilter) *UserResolver {
-
 	ID, err := strconv.Atoi(string(args.ID))
 	if err != nil {
 		panic(err)
@@ -30,11 +29,13 @@ func (r *TodoQueryResolver) User(ctx context.Context, args *UserFilter) *UserRes
 	if err != nil {
 		panic(err)
 	}
-	return &UserResolver{u: user}
+	if user == nil {
+		panic(errors.New("user not found"))
+	}
+	return &UserResolver{u: *user}
 }
 
 func (r *TodoQueryResolver) AllUsers(ctx context.Context) []*UserResolver {
-
 	users, err := model.GetDataStore().AllUsers()
 	if err != nil {
 		panic(err)
@@ -47,10 +48,19 @@ func (r *TodoQueryResolver) AllUsers(ctx context.Context) []*UserResolver {
 }
 
 func (r *TodoQueryResolver) Todo(ctx context.Context, args *TodoFilter) *TodoResolver {
-	return &TodoResolver{model.Todo{
-		ID:   string(args.Code),
-		Text: fmt.Sprintf("Text %v", args.Code),
-	}}
+	ID, err := strconv.Atoi(string(args.ID))
+	if err != nil {
+		panic(err)
+	}
+
+	todo, err := model.GetDataStore().GetTodo(int32(ID))
+	if err != nil {
+		panic(err)
+	}
+	if todo == nil {
+		panic(errors.New("todo not found"))
+	}
+	return &TodoResolver{*todo}
 }
 
 func (r *TodoQueryResolver) AllTodos(ctx context.Context) []*TodoResolver {
