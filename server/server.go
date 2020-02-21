@@ -2,10 +2,11 @@ package main
 
 import (
 	"context"
-	"labx-graphql-go-todo/model"
 	"log"
 	"net/http"
 	"os"
+
+	"labx-graphql-go-todo/model"
 )
 
 type server struct {

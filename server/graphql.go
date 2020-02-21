@@ -4,9 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"io/ioutil"
-	"labx-graphql-go-todo/graphql/resolver"
 	"net/http"
 	"os"
+
+	"labx-graphql-go-todo/graphql/resolver"
 
 	graphql "github.com/guzmanweb/graphql-go"
 )

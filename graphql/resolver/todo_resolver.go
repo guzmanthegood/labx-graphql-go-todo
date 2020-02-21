@@ -1,8 +1,9 @@
 package resolver
 
 import (
-	"github.com/guzmanweb/graphql-go"
 	"labx-graphql-go-todo/model"
+
+	"github.com/guzmanweb/graphql-go"
 )
 
 type TodoResolver struct{

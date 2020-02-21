@@ -20,7 +20,6 @@ type store struct {
 }
 
 // NewDB : new sqlx client constructor
-// write/read from the same source
 func NewDataStore(connString string) (DataStore, error) {
 	db, err := sqlx.Connect("postgres", connString)
 	if err != nil {

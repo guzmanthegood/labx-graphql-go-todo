@@ -2,9 +2,11 @@ package resolver
 
 import (
 	"context"
-	"github.com/guzmanweb/graphql-go"
-	"labx-graphql-go-todo/model"
 	"strconv"
+
+	"labx-graphql-go-todo/model"
+
+	"github.com/guzmanweb/graphql-go"
 )
 
 type CreateUserInput struct {
