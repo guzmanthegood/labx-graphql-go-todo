@@ -7,6 +7,16 @@ github.com/guzmanweb/graphql-go v0.0.0-20200220131650-b6c994edebb5 h1:Gcl0izvS8u
 github.com/guzmanweb/graphql-go v0.0.0-20200220131650-b6c994edebb5/go.mod h1:B/F5ZhThWfJZqG4w/NQnWp/X47SYHagk8ZbYXta/bM4=
 github.com/guzmanweb/graphql-go v0.0.0-20200220132713-1d4e923f5a6e h1:byhcMX8cUq93SkHPd92L2J/i9/QgYzwMLkO/1dtCQKs=
 github.com/guzmanweb/graphql-go v0.0.0-20200220132713-1d4e923f5a6e/go.mod h1:B/F5ZhThWfJZqG4w/NQnWp/X47SYHagk8ZbYXta/bM4=
+github.com/guzmanweb/graphql-go v0.0.0-20200224074428-72fcd64c523e h1:reHTXTuNtfbewzpbJ7sXQcJ+eZmpCfglWMDd+L2U2dg=
+github.com/guzmanweb/graphql-go v0.0.0-20200224074428-72fcd64c523e/go.mod h1:9/TLHNx0Un/IXhEgmgJFy1OzYZUlm70v2bfXq2iRJjo=
+github.com/guzmanweb/graphql-go v1.0.0 h1:IaVoR80SCDrHeWG9alAkJaJ1YsjwNXVbi/pa7g/LCuQ=
+github.com/guzmanweb/graphql-go v1.0.0/go.mod h1:9/TLHNx0Un/IXhEgmgJFy1OzYZUlm70v2bfXq2iRJjo=
+github.com/guzmanweb/graphql-go v1.2.1 h1:KN4OoPBo2zIgFVITV4Pifs6oIp2qILBoSVwXfi3gHAw=
+github.com/guzmanweb/graphql-go v1.2.1/go.mod h1:9/TLHNx0Un/IXhEgmgJFy1OzYZUlm70v2bfXq2iRJjo=
+github.com/guzmanweb/graphql-go v1.2.2 h1:EJ4vbDppElWaV5u03h1QjCRWwQyzbQgJW+tXFs7ShZ8=
+github.com/guzmanweb/graphql-go v1.2.2/go.mod h1:9/TLHNx0Un/IXhEgmgJFy1OzYZUlm70v2bfXq2iRJjo=
+github.com/guzmanweb/graphql-go v1.3.0 h1:FUcrQJS7EN+J0Vy86v3SXStkPx5MOxmb7uCelsuFvyA=
+github.com/guzmanweb/graphql-go v1.3.0/go.mod h1:9/TLHNx0Un/IXhEgmgJFy1OzYZUlm70v2bfXq2iRJjo=
 github.com/jmoiron/sqlx v1.2.0 h1:41Ip0zITnmWNR/vHV+S4m+VoUivnWY5E4OJfLZjCJMA=
 github.com/jmoiron/sqlx v1.2.0/go.mod h1:1FEQNm3xlJgrMD+FBdI9+xvCksHtbpVBBw5dYhBSsks=
 github.com/lib/pq v1.0.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
